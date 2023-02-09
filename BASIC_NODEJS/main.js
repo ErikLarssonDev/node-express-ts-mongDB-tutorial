@@ -7,7 +7,6 @@
 //     process.exit()
 // })
 
-
 // 7. Basic node.js | readline
 // const readline = require('readline')
 
@@ -16,17 +15,20 @@
 //     output: process.stdout
 // })
 
-
 // rl.question("What's your name? ", (answer) => {
 //     console.log(answer)
 //     process.exit()
 // })
 
 // 8. Basic node.js | path & util modules
-const path = require('path')
-const util = require('util')
+// const path = require('path')
+// const util = require('util')
 
-console.log(path.basename(__filename))
-console.log(__filename)
-console.log(path.join(__dirname, "./path/file"))
-console.log(util.log(path.basename(__filename)))
+// console.log(path.basename(__filename))
+// console.log(__filename)
+// console.log(path.join(__dirname, "./path/file"))
+// console.log(util.log(path.basename(__filename)))
+
+// 9. Basic node.js | export and import
+const { fileExt } = require("./module.js");
+console.log(fileExt());
