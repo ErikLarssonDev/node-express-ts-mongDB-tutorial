@@ -38,6 +38,13 @@
 // console.log(files)
 
 // 11. Basic node.js | readfile
+// const fs = require("fs");
+// const text = fs.readFileSync("./text.md", { encoding: "utf-8" });
+// console.log(text);
+
+// 12. Basic node.js | append write files
 const fs = require("fs");
-const text = fs.readFileSync("./text.md", { encoding: "utf-8" });
-console.log(text);
+// writeFile will replace the file if it exists
+fs.writeFile("new_file.txt", "example", { flag: 'a+' }, (err) => { // { flag: 'a+' }, append to file, if you can't find the file --> create new file.
+    if (err) throw err
+})
