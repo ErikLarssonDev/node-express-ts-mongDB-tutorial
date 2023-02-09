@@ -33,6 +33,11 @@
 
 // 10. Basic node.js | listing directory files
 /* FILE MANAGEMENT with fs module */
-const fs = require('fs')
-const files = fs.readdirSync("./")
-console.log(files)
+// const fs = require('fs')
+// const files = fs.readdirSync("./")
+// console.log(files)
+
+// 11. Basic node.js | readfile
+const fs = require("fs");
+const text = fs.readFileSync("./text.md", { encoding: "utf-8" });
+console.log(text);
