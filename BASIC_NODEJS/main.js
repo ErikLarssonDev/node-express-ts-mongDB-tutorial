@@ -74,17 +74,22 @@
 // })
 
 // 16. Advanced node.js | readable stream
+// const fs = require("fs");
+// const stream = fs.createReadStream('./text.md', 'utf-8')
+// stream.on('data', (data) => {
+//     console.log(data)
+// })
+// stream.on('end', () => console.log('Finished.'))
+
+// 17. Advanced node.js | writable stream
 const fs = require("fs");
-const stream = fs.createReadStream('./text.md', 'utf-8')
-stream.on('data', (data) => {
-    console.log(data)
-})
-stream.on('end', () => console.log('Finished.'))
-
-
-
-
-
-
-
+const readStream = fs.createReadStream("./text.md", "utf-8");
+const writeStream = fs.createWriteStream("./text_copy.md", "utf-8");
+readStream.on("data", (chunk) => {
+  writeStream.write(chunk);
+});
+readStream.on("end", () => {
+  writeStream.end()
+});
+writeStream.on('close', () => process.stdout.write('File copied! \n'))
 
