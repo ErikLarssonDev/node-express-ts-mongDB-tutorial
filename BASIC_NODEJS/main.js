@@ -94,13 +94,35 @@
 // writeStream.on('close', () => process.stdout.write('File copied! \n'))
 
 // 18. Advanced node.js | pipes
-const fs = require("fs");
-const readStream = fs.createReadStream("./text.md", "utf-8");
-const writeStream = fs.createWriteStream("./text_copy.md", "utf-8");
-readStream.pipe(writeStream).on('error', (err) => console.log(err))
-writeStream.on('close', () => process.stdout.write('File copied! \n'))
+// const fs = require("fs");
+// const readStream = fs.createReadStream("./text.md", "utf-8");
+// const writeStream = fs.createWriteStream("./text_copy.md", "utf-8");
+// readStream.pipe(writeStream).on('error', (err) => console.log(err))
+// writeStream.on('close', () => process.stdout.write('File copied! \n'))
 
+// 19. Advanced node.js | http module
+const https = require('https')
+const fs = require('fs')
+const options = {
+    hostname: 'en.wikipedia.org',
+    port: 443, // Port used to make a https request
+    path: '/wiki/Node.js',
+    method: 'GET'
+}
+const request = https.request(options, (res) => {
+    let responseBody = ""
+    res.setEncoding('utf-8')
+    res.on('data', (chunk) => {
+        console.log('--chunk', chunk.length)
+        responseBody += chunk
+    })
+    res.on('end', () => {
+        fs.writeFile('nodejs.html', responseBody, (err) => {
+            if (err) throw err
+        })
+    })
+})
 
-
+request.end()
 
 
