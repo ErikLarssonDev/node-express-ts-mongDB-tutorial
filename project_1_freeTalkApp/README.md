@@ -11,3 +11,4 @@ Run a file `node FILENAME`
 Create a package.json file `npm init -y`
 Intall typescript globally `npm i typescript -g`
 Initate typescript setup `npx tsc -init`. Open the file and and uncomment "rootDir", baseUrl, outDir and change outDir to "./dist".
+Install express with types `npm install express @types/express`
