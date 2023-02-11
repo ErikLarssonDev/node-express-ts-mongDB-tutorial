@@ -61,3 +61,14 @@
 // fs.renameSync('./new_file.txt', 'new_file_renamed.txt')
 // fs.renameSync('./new_file_renamed.txt', './new_dir/new_file_renamed.txt') // You can move and rename a file at the same time if you want.
 // fs.unlinkSync('./new_dir/new_file_renamed.txt')
+
+// 15. Basic node.js | rename, move and rename directories
+const fs = require("fs");
+// fs.renameSync('./images', './images_files')
+// fs.renameSync('./new_dir', './images_files/images_list')
+// fs.readdirSync('./images_files/images_list').forEach(file => {
+//     fs.renameSync('./images_files/images_list/' + file, './images_files/' + file)
+// })
+fs.rmdir('./images_files/images_list', (err) => {
+    if (err) throw err
+})
