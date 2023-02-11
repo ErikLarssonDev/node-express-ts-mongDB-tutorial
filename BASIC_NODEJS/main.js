@@ -43,8 +43,16 @@
 // console.log(text);
 
 // 12. Basic node.js | append write files
+// const fs = require("fs");
+// // writeFile will replace the file if it exists
+// fs.writeFile("new_file.txt", "example", { flag: 'a+' }, (err) => { // { flag: 'a+' }, append to file, if you can't find the file --> create new file.
+//     if (err) throw err
+// })
+
+// 13. Basic node.js | creating directories
 const fs = require("fs");
-// writeFile will replace the file if it exists
-fs.writeFile("new_file.txt", "example", { flag: 'a+' }, (err) => { // { flag: 'a+' }, append to file, if you can't find the file --> create new file.
+if(fs.existsSync('new_dir')) return
+fs.mkdir('new_dir', (err) => {
     if (err) throw err
 })
+
