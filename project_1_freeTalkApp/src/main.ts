@@ -1,5 +1,12 @@
-import express from 'express'
+import express from "express";
+import { json, urlencoded } from "body-parser";
 
-const app = express()
+const app = express();
 
-app.listen(8080, () => console.log('Server is up and running on port 8080'))
+app.use(urlencoded({
+    extended: true
+}
+))
+app.use(json())
+
+app.listen(8080, () => console.log("Server is up and running on port 8080"));
