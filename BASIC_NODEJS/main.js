@@ -63,12 +63,28 @@
 // fs.unlinkSync('./new_dir/new_file_renamed.txt')
 
 // 15. Basic node.js | rename, move and rename directories
-const fs = require("fs");
+// const fs = require("fs");
 // fs.renameSync('./images', './images_files')
 // fs.renameSync('./new_dir', './images_files/images_list')
 // fs.readdirSync('./images_files/images_list').forEach(file => {
 //     fs.renameSync('./images_files/images_list/' + file, './images_files/' + file)
 // })
-fs.rmdir('./images_files/images_list', (err) => {
-    if (err) throw err
+// fs.rmdir('./images_files/images_list', (err) => {
+//     if (err) throw err
+// })
+
+// 16. Advanced node.js | readable stream
+const fs = require("fs");
+const stream = fs.createReadStream('./text.md', 'utf-8')
+stream.on('data', (data) => {
+    console.log(data)
 })
+stream.on('end', () => console.log('Finished.'))
+
+
+
+
+
+
+
+
