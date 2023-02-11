@@ -50,9 +50,14 @@
 // })
 
 // 13. Basic node.js | creating directories
-const fs = require("fs");
-if(fs.existsSync('new_dir')) return
-fs.mkdir('new_dir', (err) => {
-    if (err) throw err
-})
+// const fs = require("fs");
+// if(fs.existsSync('new_dir')) return
+// fs.mkdir('new_dir', (err) => {
+//     if (err) throw err
+// })
 
+// 14. Basic node.js | rename, move and rename files
+// const fs = require("fs");
+// fs.renameSync('./new_file.txt', 'new_file_renamed.txt')
+// fs.renameSync('./new_file_renamed.txt', './new_dir/new_file_renamed.txt') // You can move and rename a file at the same time if you want.
+// fs.unlinkSync('./new_dir/new_file_renamed.txt')
