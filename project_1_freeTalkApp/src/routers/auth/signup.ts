@@ -16,7 +16,7 @@ router.post(
     })
     await newUser.save()
     req.session = {
-        jwt: jwt.sign({ email, userId: newUser._id }, process.env.JWT_KEY!)
+        jwt: jwt.sign({ email, userId: newUser._id }, process.env.JWT_KEY!, {expiresIn: '10h'})
     }
     res.status(200).send(newUser)
   }
