@@ -14,6 +14,11 @@ Node.js
 Express.js
 MongoDB
 
+# Programming conventions
+- Camel case for variables
+- Upper case and snail case for .env variables
+
+
 # Commands used to set up this project
 Run a file `node FILENAME`
 Create a package.json file `npm init -y`
