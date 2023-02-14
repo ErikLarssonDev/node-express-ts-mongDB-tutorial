@@ -3,6 +3,14 @@ dotenv.config();
 import express, { Request, Response, NextFunction } from "express";
 import { json, urlencoded } from "body-parser";
 import mongoose from "mongoose";
+import {
+  newPostRouter,
+  deletePostRouter,
+  updatePostRouter,
+  showPostRouter,
+  newCommentRouter,
+  deleteCommentRouter,
+} from "./routers";
 
 const app = express();
 
@@ -12,6 +20,19 @@ app.use(
   })
 );
 app.use(json());
+
+// Routes
+app.use(newPostRouter);
+app.use(deletePostRouter);
+app.use(updatePostRouter);
+app.use(showPostRouter);
+app.use(newCommentRouter);
+app.use(deleteCommentRouter);
+app.all("*", (req: Request, res: Response, next: NextFunction) => {
+  const error = new Error("Not found!") as CustomError;
+  error.status = 404;
+  next(error);
+});
 
 declare global {
   // Enables us to use status codes on errors
