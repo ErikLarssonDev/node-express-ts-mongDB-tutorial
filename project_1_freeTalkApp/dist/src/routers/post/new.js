@@ -19,7 +19,7 @@ const router = (0, express_1.Router)();
 exports.newPostRouter = router;
 router.post("/api/post/new", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { title, content } = req.body;
-    if (!title || content) {
+    if (!title || !content) {
         const error = new Error("Title and content are required!");
         error.status = 400;
         return next(error);
