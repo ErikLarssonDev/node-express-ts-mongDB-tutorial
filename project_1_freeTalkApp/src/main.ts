@@ -3,6 +3,7 @@ dotenv.config();
 import express, { Request, Response, NextFunction } from "express";
 import { json, urlencoded } from "body-parser";
 import mongoose from "mongoose";
+import cors from 'cors'
 import {
   newPostRouter,
   deletePostRouter,
@@ -13,6 +14,11 @@ import {
 } from "./routers";
 
 const app = express();
+
+app.use(cors({
+    origin: "*", // It is not necessary, app.use(cors() will do the same as default is "*". This makes it possible for all client applications to access our API.
+    optionsSuccessStatus: 200
+}))
 
 app.use(
   urlencoded({
