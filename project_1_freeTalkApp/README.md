@@ -16,6 +16,7 @@ MongoDB
 
 # Programming conventions
 - Camel case for variables
+- Pascal case for types
 - Upper case and snail case for .env variables
 
 
