@@ -4,6 +4,7 @@ import express, { Request, Response, NextFunction } from "express";
 import { json, urlencoded } from "body-parser";
 import mongoose from "mongoose";
 import cors from 'cors'
+import cookieSession from "cookie-session";
 import {
   newPostRouter,
   deletePostRouter,
@@ -20,12 +21,18 @@ app.use(cors({
     optionsSuccessStatus: 200
 }))
 
+app.set('trust proxy', true) // So that the API will accept the local proxy
+
 app.use(
   urlencoded({
     extended: false,
   })
 );
 app.use(json());
+app.use(cookieSession({ // In production, change to true.
+    signed: false,
+    secure: false
+}))
 
 // Routes
 app.use(newPostRouter);
@@ -60,6 +67,7 @@ app.use(
 
 const start = async () => {
   if (!process.env.MONGO_URI) throw new Error("MONGO_URI is required!");
+  if (!process.env.JWT_KEY) throw new Error("JWT_KEY is required!");
   try {
     await mongoose.connect(process.env.MONGO_URI);
   } catch (err) {
