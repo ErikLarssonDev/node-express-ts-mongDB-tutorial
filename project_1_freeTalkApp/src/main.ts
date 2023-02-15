@@ -12,7 +12,12 @@ import {
   showPostRouter,
   newCommentRouter,
   deleteCommentRouter,
+  signinRouter,
+  signupRouter,
+  currentUserRouter,
 } from "./routers";
+import { requireAuth, currentUser, errorHandler, NotFoundError } from "../common";
+import { signoutRouter } from "./routers/auth/signout";
 
 const app = express();
 
@@ -34,36 +39,29 @@ app.use(cookieSession({ // In production, change to true.
     secure: false
 }))
 
+app.use(currentUser)
+
 // Routes
-app.use(newPostRouter);
-app.use(deletePostRouter);
-app.use(updatePostRouter);
-app.use(showPostRouter);
-app.use(newCommentRouter);
-app.use(deleteCommentRouter);
+app.use(signinRouter)
+app.use(signoutRouter)
+app.use(signupRouter)
+app.use(currentUserRouter)
+
+app.use(requireAuth, newPostRouter);
+app.use(requireAuth, deletePostRouter);
+app.use(requireAuth, updatePostRouter);
+app.use(showPostRouter); // Anyone can see posts without logging in.
+
+app.use(requireAuth, newCommentRouter);
+app.use(requireAuth, deleteCommentRouter);
+
 app.all("*", (req: Request, res: Response, next: NextFunction) => {
-  const error = new Error("Not found!") as CustomError;
-  error.status = 404;
-  next(error);
+  return next(new NotFoundError())
+  
 });
 
-declare global {
-  // Enables us to use status codes on errors
-  interface CustomError extends Error {
-    status?: number;
-  }
-}
-
 // Error handler middle-ware
-app.use(
-  (error: CustomError, req: Request, res: Response, next: NextFunction) => {
-    if (error.status) {
-      return res.status(error.status).json({ message: error.message });
-    }
-
-    return res.status(500).json({ message: "Something went wrong!" });
-  }
-);
+app.use(errorHandler);
 
 const start = async () => {
   if (!process.env.MONGO_URI) throw new Error("MONGO_URI is required!");

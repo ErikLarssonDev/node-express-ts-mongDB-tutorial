@@ -18,6 +18,7 @@ MongoDB(https://cloud.mongodb.com/v2/63eb5c7291cb760dc067999e#/clusters)
 - Camel case for variables
 - Pascal case for types
 - Upper case and snail case for .env variables
+- Kebab case for ts files
 
 
 # Commands used to set up this project

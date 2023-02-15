@@ -1,5 +1,6 @@
 import { Router, Request, Response, NextFunction } from "express";
 import Post from "../../models/post";
+import { BadRequestError } from "../../../common";
 
 const router = Router();
 
@@ -8,9 +9,7 @@ router.delete(
   async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
     if (!id) {
-      const error = new Error("Post id is required!") as CustomError;
-      error.status = 400;
-      next(error);
+      return next(new BadRequestError("Post id is required!"))
     }
     try {
       await Post.findOneAndRemove({ _id: id }); // Better to use remove than delete. The document will stay in a cache in the storage in the mongoDB.
