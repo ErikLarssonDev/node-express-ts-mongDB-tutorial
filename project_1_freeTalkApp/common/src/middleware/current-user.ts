@@ -4,7 +4,7 @@ import { Request, Response, NextFunction } from 'express';
 declare global {
     interface JwtPayload {
         email: string,
-        password: string
+        userId: string
     }
     namespace Express {
         interface Request {

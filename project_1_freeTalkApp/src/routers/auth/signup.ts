@@ -10,10 +10,12 @@ router.post(
   async (req: Request, res: Response, next: NextFunction) => {
     const { email, password } = req.body;
     const user = await User.findOne({email})
+    
     if (user) return next(new BadRequestError('User with the same email already exists!'))
-    const newUser = new User({
-        email,
-        password
+    
+    const newUser = User.build({
+      email,
+      password
     })
     await newUser.save()
     req.session = {

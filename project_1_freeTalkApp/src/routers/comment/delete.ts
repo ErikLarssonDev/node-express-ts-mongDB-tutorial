@@ -17,11 +17,13 @@ router.delete(
     } catch (err) {
       next(new Error("Failed to delete comment!"));
     }
-    await Post.findOneAndUpdate(
+    const post = await Post.findOneAndUpdate(
       { _id: postId },
-      { $pull: { comments: commentId } }
+      { $pull: { comments: commentId } },
+      { new: true }
     );
-    res.status(200).json({ success: true });
+    if (!post) return next(new Error())
+    res.status(200).send(post);
   }
 );
 

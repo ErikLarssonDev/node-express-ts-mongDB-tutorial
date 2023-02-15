@@ -4,6 +4,7 @@ This is the first project in the series where we create a simple social media ap
 # First time project setup
 1. You need to have node.js installed. You can check this by running `node -v`
 2. Set up the .env file in the root directory of the project. 
+3. Run `npm install` to install dependencies. 
 
 # How to run the project
 `npm run start`
