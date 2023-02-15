@@ -10,8 +10,12 @@ import {
   deletePostRouter,
   updatePostRouter,
   showPostRouter,
+  addImagesRouter,
+  deleteImagesRouter,
+
   newCommentRouter,
   deleteCommentRouter,
+
   signinRouter,
   signupRouter,
   currentUserRouter,
@@ -51,6 +55,8 @@ app.use(requireAuth, newPostRouter);
 app.use(requireAuth, deletePostRouter);
 app.use(requireAuth, updatePostRouter);
 app.use(showPostRouter); // Anyone can see posts without logging in.
+app.use(requireAuth, addImagesRouter)
+app.use(requireAuth, deleteImagesRouter)
 
 app.use(requireAuth, newCommentRouter);
 app.use(requireAuth, deleteCommentRouter);
