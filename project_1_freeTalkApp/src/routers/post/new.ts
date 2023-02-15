@@ -23,7 +23,7 @@ router.post(
       images = req.files ? [...req.files] : [];
     }
 
-    if (!title || !content) {
+    if (!title || !content) { // TODO: Validate using express-validator instead
       return next(new BadRequestError("Title and content are required!"));
     }
 
