@@ -9,6 +9,9 @@ This is the first project in the series where we create a simple social media ap
 # How to run the project
 `npm run start`
 
+# How to run the unit tests
+`npm run test`
+
 # Tech stack
 TypeScript
 Node.js
