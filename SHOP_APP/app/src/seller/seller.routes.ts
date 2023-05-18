@@ -10,18 +10,19 @@ import {
 import { sellerService } from "./seller.service";
 
 const uploader = new Uploader(uploadDir);
-const middlewareOptions = {
-  types: ["image/png", "imgage/jpeg"],
+const middlewareOptions: UploaderMiddlewareOptions = {
+  types: ["image/png", "image/jpeg"],
   fieldName: "image",
 };
 
-const multipleFilesMiddleware = uploader.uploadMultipleFiles(middlewareOptions);
+const multipeFilesMiddleware = uploader.uploadMultipleFiles(middlewareOptions);
 
 const router = Router();
 
 router.post(
-  "/poduct/new",
+  "/product/new",
   requireAuth,
+  multipeFilesMiddleware,
   async (req: Request, res: Response, next: NextFunction) => {
     const { title, price } = req.body;
 
@@ -30,7 +31,6 @@ router.post(
     if (req.uploaderError)
       return next(new BadRequestError(req.uploaderError.message));
 
-    // Create product
     const product = await sellerService.addProduct({
       title,
       price,
@@ -38,8 +38,7 @@ router.post(
       files: req.files,
     });
 
-    // Send to user
-    res.status(200).send(product);
+    res.status(201).send(product);
   }
 );
 
@@ -49,13 +48,16 @@ router.post(
   async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
     const { title, price } = req.body;
+
     const result = await sellerService.updateProduct({
       title,
       price,
       userId: req.currentUser!.userId,
       productId: id,
     });
+
     if (result instanceof CustomError) return next(result);
+
     res.status(200).send(result);
   }
 );
@@ -70,6 +72,7 @@ router.delete(
       userId: req.currentUser!.userId,
     });
     if (result instanceof CustomError) return next(result);
+
     res.status(200).send(true);
   }
 );
@@ -77,7 +80,7 @@ router.delete(
 router.post(
   "/product/:id/add-images",
   requireAuth,
-  multipleFilesMiddleware,
+  multipeFilesMiddleware,
   async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
 

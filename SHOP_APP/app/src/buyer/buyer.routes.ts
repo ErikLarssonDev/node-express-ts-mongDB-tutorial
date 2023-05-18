@@ -1,4 +1,9 @@
-import { BadRequestError, CustomError, NotAuthorizedError, requireAuth } from "@shopapp1/common";
+import {
+  BadRequestError,
+  CustomError,
+  NotAuthorizedError,
+  requireAuth,
+} from "@shopapp1/common";
 import { Router, Response, Request, NextFunction } from "express";
 import { buyerService } from "./buyer.services";
 
@@ -11,14 +16,14 @@ router.post(
     const { productId, quantity } = req.body;
 
     const result = await buyerService.addProductToCart({
-      productId,
-      quantity,
+      productId: productId,
+      quantity: quantity,
       userId: req.currentUser!.userId,
     });
     if (result instanceof CustomError || result instanceof Error)
       return next(result);
 
-    req.session = { ...req.session, cartId: result.id }
+    req.session = { ...req.session, cartId: result.id };
 
     res.status(200).send(result);
   }
@@ -71,11 +76,43 @@ router.get(
   "/get/cart/:cartId",
   requireAuth,
   async (req: Request, res: Response, next: NextFunction) => {
-    const cartId = req.session?.cartId
-    if(!cartId) return next(new BadRequestError('cartId is required'))
+    const cartId = req.session?.cartId;
+    if (!cartId) return next(new BadRequestError("cartId is required"));
     const result = await buyerService.getCart(cartId, req.currentUser!.userId);
 
-    if (result instanceof CustomError)
+    if (result instanceof CustomError) return next(result);
+
+    res.status(200).send(result);
+  }
+);
+
+router.post(
+  "payment/checkout",
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { cardToken } = req.body;
+
+    const result = await buyerService.checkout(
+      req.currentUser!.userId,
+      cardToken,
+      req.currentUser!.email
+    );
+
+    if (result instanceof CustomError) return next(result);
+
+    res.status(200).send(result);
+  }
+);
+
+router.post(
+  "payment/card/update",
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { cardToken } = req.body;
+    const result = await buyerService.updateCustomerStripeCard(
+      req.currentUser!.userId,
+      cardToken
+    );
+
+    if (result instanceof CustomError || result instanceof Error)
       return next(result);
 
     res.status(200).send(result);

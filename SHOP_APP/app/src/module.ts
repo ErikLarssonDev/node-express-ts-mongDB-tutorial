@@ -9,6 +9,7 @@ import mongoose from "mongoose";
 import { currentUser, errorHandler } from "@shopapp1/common";
 import { authRouters } from "./auth/auth.routers";
 import { sellerRouters } from "./seller/seller.routes";
+import { buyerRouters } from "./buyer/buyer.routes";
 
 export class AppModule {
   constructor(public app: Application) {
@@ -40,6 +41,9 @@ export class AppModule {
     if (!process.env.JWT_KEY) {
       throw new Error("JWT_KEY must be defined!");
     }
+    if (!process.env.STRIPE_SECRET_KEY) {
+        throw new Error("STRIPE_SECRET_KEY must be defined!");
+      }
 
     try {
       mongoose.set("strictQuery", false);
@@ -52,6 +56,7 @@ export class AppModule {
     this.app.use(currentUser(process.env.JWT_KEY!));
     this.app.use(authRouters);
     this.app.use(sellerRouters);
+    this.app.use(buyerRouters)
     this.app.use(errorHandler);
     this.app.listen(8080, () => console.log("OK! port: 8080"));
   }
