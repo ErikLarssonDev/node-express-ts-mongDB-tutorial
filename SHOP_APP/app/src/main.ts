@@ -5,7 +5,8 @@ import { JwtPayload } from "@shopapp1/common"
 declare global {
     namespace Express {
         interface Request {
-            currentUser?: JwtPayload
+            currentUser?: JwtPayload,
+            uploaderError?: Error
         }
     }
 }
