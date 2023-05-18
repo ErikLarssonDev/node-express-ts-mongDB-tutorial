@@ -7,4 +7,4 @@ export interface OrderDoc extends mongoose.Document {
     chargeId: string | number;
 }
 
-export interface  OrderModel extends mongoose.Model<OrderDoc> {}
+export interface OrderModel extends mongoose.Model<OrderDoc> {}
