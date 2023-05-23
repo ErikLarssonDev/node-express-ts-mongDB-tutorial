@@ -12,3 +12,6 @@ Create a package.json file `npm init -y`
 Intall typescript globally `npm i typescript -g`
 Initate typescript setup `npx tsc -init`. Open the file and and uncomment "rootDir", baseUrl, outDir and change outDir to "./dist".
 
+# Future development
+Add a front end application to test the Stripe connection for the SHOP_APP.
+
