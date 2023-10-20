@@ -1,5 +1,5 @@
 # node-express-ts-mongDB-tutorial
-Nodejs, Express, Typescript, MongoDb &amp; more: The real path (from beginner to advanced)
+Nodejs, Express, Typescript, MongoDb &amp; more.
 
 # First time project setup
 You need to have node.js installed. You can check this by running `node -v`
